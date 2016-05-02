@@ -1,0 +1,128 @@
+<html >
+
+<head>
+    <title>Produtos - Gerenciamento Completo de Estoque!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Produtos</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a href="#" id="aHome"> <span class="glyphicon glyphicon-home" aria-hidden="true"> <b>Home</b> </span> </a>
+                </li>
+                <li><a href="#" id="aCadastro"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"> <b>Cadastrar</b></span></a></li>
+                <li><a href="#" id="aListar"><span class="glyphicon glyphicon-th-list" aria-hidden="true"> <b>Listar</b></span></a></li>
+                <li><a href="#" id="aExcluir"><span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"> <b>Excluir</b></span></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container"></div>
+
+
+ <!-- Trigger the modal with a button -->
+  <button id="btnModalSucesso" style="visibility:hidden" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal"></button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Alerta</h4>
+        </div>
+        <div class="modal-body">
+          <p>Operação efetuada com sucesso!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+</body>
+
+<!--JQuery-->
+<script src="~/../inc/jquery-1.12.3.min.js"></script>
+
+<!--JQuery Modal-->
+<!--<script src="~/../inc/jquery-modal/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="~/../css/jquery-modal/jquery.modal.css" />-->
+
+<!--Boodstrap-->
+<script src="~/../inc/boodstrap-3.3.6/bootstrap.min.js"></script>
+<script src="~/../inc/boodstrap-3.3.6/bootstrap-modal.js"></script>
+<link rel="stylesheet" href="~/../css/boodstrap-3.3.6/bootstrap.min.css" />
+
+<script>
+    function Produto(){
+        this.Codigo = "";
+        this.Nome = "";
+        this.Tipo = "";
+        this.Preco = "";
+        this.Estoque = "";
+    }
+        var produtos = [];
+    
+    $(document).ready(function(){
+      incluirHome();                    
+              
+       $("#aHome").click(function(){
+        incluirHome();
+       }); 
+        
+       $("#aCadastro").click(function(){    
+           $(".container").empty();       
+           $(".container").load("cadastrar.html");
+       }); 
+       
+        $("#aListar").click(function(){ 
+           $(".container").empty();       
+           $(".container").load("listar.html");
+       }); 
+       
+       $("#aExcluir").click(function(){ 
+           $(".container").empty();       
+           $(".container").load("excluir.html");
+       }); 
+       
+    });
+    
+    function incluirHome(){
+        var home = '<div id="home"><h3>Gerenciamento de Produtos</h3><p>Bem-vindo ao sistema de gerenciamento de produtos. Utilize do <b>menu</b> acima para navegar no site!</p></div>'
+         $(".container").empty();        
+         $(".container").append(home);         
+    }
+    
+    function sucesso(){
+        //var msg = "<p>Operação Efetuada com Sucesso! <a href='#' rel='modal:close'>Fechar</a></p>";
+        //$("#divAlertaSucesso").append(msg);  
+        $("#linkSucesso").click(); 
+    }
+    
+    function ultimoCodigo(){
+        return (produtos.last() === undefined) ? "0" : produtos.last().Codigo;
+    }
+    
+    Array.prototype.last = function() {
+        return this[this.length-1];
+    }
+    
+    function alertaSucesso(){
+        //msg de alerta
+        $("#btnModalSucesso").click(); 
+    }
+</script>
+
+</html>
