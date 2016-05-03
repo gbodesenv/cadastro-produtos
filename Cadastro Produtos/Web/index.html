@@ -17,9 +17,10 @@
                 <li class="active">
                     <a href="#" id="aHome"> <span class="glyphicon glyphicon-home" aria-hidden="true"> <b>Home</b> </span> </a>
                 </li>
-                <li><a href="#" id="aCadastro"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"> <b>Cadastrar</b></span></a></li>
-                <li><a href="#" id="aListar"><span class="glyphicon glyphicon-th-list" aria-hidden="true"> <b>Listar</b></span></a></li>
+                <li><a href="#" id="aCadastro"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"> <b>Inserir</b></span></a></li>
+                <li><a href="#" id="aAlterar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"> <b>Alterar</b></span></a></li>
                 <li><a href="#" id="aExcluir"><span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"> <b>Excluir</b></span></a></li>
+                <li><a href="#" id="aListar"><span class="glyphicon glyphicon-th-list" aria-hidden="true"> <b>Listar - Pesquisar</b></span></a></li>                
             </ul>
         </div>
     </nav>
@@ -78,6 +79,11 @@
         var produtos = [];
     
     $(document).ready(function(){
+      $("ul.navbar-nav li").click(function(){
+       $(this).addClass('active').siblings().removeClass('active');
+       console.log($(this));
+      }); 
+        
       incluirHome();                    
               
        $("#aHome").click(function(){
@@ -87,6 +93,11 @@
        $("#aCadastro").click(function(){    
            $(".container").empty();       
            $(".container").load("cadastrar.html");
+       }); 
+       
+       $("#aAlterar").click(function(){    
+           $(".container").empty();       
+           $(".container").load("alterar.html");
        }); 
        
         $("#aListar").click(function(){ 

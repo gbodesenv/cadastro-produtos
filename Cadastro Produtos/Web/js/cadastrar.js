@@ -1,10 +1,4 @@
-$(document).ready(function () {      
-    // $('input[type=number]').on('keyup', function(evt){
-    //     if (evt.which != 110 ){//not a fullstop
-    //         var n = parseFloat($(this).val().replace(/\,/g,''),10);
-    //         $(this).val(n.toLocaleString());
-    //     }
-    // });
+$(document).ready(function () {     
     
      $("#btnNovoProduto").click(function () {
          $(".container").empty();       
@@ -24,6 +18,7 @@ $(document).ready(function () {
             return false;
         }        
     });
+    
 });
 
 function preencherEntidade() {
