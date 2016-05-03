@@ -10,8 +10,10 @@ $(document).ready(function () {
     listarProdutos();
 });
 
-function listarProdutos() {
-    $.each(produtos, function (key, p) {
+function listarProdutos(novo) {
+    var n = (novo === undefined) ? produtos : novo;
+    
+    $.each(n, function (key, p) {
         $('#tabelaListar > tbody').append(adicionarLinhas(p));
     });
 }
