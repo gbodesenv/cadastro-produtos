@@ -10,15 +10,28 @@ function ValidarLogin() {
     var senha = $("#txtSenha").val();
 
     if (login != '' && senha != '') {
-        var seg = new infoSeg();
-        console.log(seg);
+        var seg = new infoSeg();        
         if (seg.Senha == senha && seg.Usuario == login)
-            exibirCadastro();
+            {
+                console.log(tela);
+            $('#myModalLogin').modal('toggle');
+               if(tela=='alterar'){
+               console.log("1");
+                    exibirAlterar();
+               }
+               else if(tela=='excluir'){
+                   console.log("2");
+                    exibirExcluir();
+               }
+            }
         else
-            $("#btnModalInvalido").click();
+            alert('Usuário ou senha inválidos');
+        
+            //$("#btnModalInvalido").click();
     }
     else {
-        $("#btnModalInvalido").click();
+        aler('Usuário ou senha inválidos');
+        //$("#btnModalInvalido").click();
     }
 }
 
@@ -27,7 +40,12 @@ function infoSeg() {
     this.Senha = "12345";
 }
 
-function exibirCadastro() {
-    $(".container").empty();
-    $(".container").load("cadastrar.html");
+function exibirAlterar() {
+  $(".container").empty();       
+  $(".container").load("~/../web/alterar.html");
+}
+
+function exibirExcluir() {
+   $(".container").empty();       
+   $(".container").load("~/../web/excluir.html");
 }

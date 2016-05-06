@@ -167,22 +167,21 @@
        }); 
         
        $("#aCadastro").click(function(){   
-           login("cadastrar");        
+             $(".container").empty();
+             $(".container").load("~/../web/cadastrar.html");
        }); 
                      
-       $("#aAlterar").click(function(){    
-           $(".container").empty();       
-           $(".container").load("alterar.html");
+       $("#aAlterar").click(function(){ 
+              login("alterar"); 
        }); 
        
         $("#aListar").click(function(){ 
            $(".container").empty();       
-           $(".container").load("listar.html");
-       }); 
+           $(".container").load("~/../web/listar.html");
+        }); 
        
        $("#aExcluir").click(function(){ 
-           $(".container").empty();       
-           $(".container").load("excluir.html");
+           login("excluir"); 
        }); 
        
     });
