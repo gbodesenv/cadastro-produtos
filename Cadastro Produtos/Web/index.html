@@ -20,7 +20,7 @@
                 <li><a href="#" id="aCadastro"><span class="glyphicon glyphicon-floppy-save" aria-hidden="true"> <b>Inserir</b></span></a></li>
                 <li><a href="#" id="aAlterar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"> <b>Alterar</b></span></a></li>
                 <li><a href="#" id="aExcluir"><span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"> <b>Excluir</b></span></a></li>
-                <li><a href="#" id="aListar"><span class="glyphicon glyphicon-th-list" aria-hidden="true"> <b>Listar - Pesquisar</b></span></a></li>                
+                <li><a href="#" id="aListar"><span class="glyphicon glyphicon-th-list" aria-hidden="true"> <b>Listar - Pesquisar</b></span></a></li>
             </ul>
         </div>
     </nav>
@@ -54,6 +54,79 @@
         </div>
     </div>
 
+     <!-- Trigger the modal with a button -->
+    <button id="btnModalInvalido" style="visibility:hidden" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalInvalido"></button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModalInvalido" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Alerta</h4>
+                </div>
+                <div class="modal-body">
+                    <p><b>Usuário</b> ou <b>Senha</b> Inválido(s)!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Trigger the modal with a button -->
+    <button id="btnModalLogin" style="visibility:hidden" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalLogin"></button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModalLogin" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Login</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" id="formLogin">
+                        <div class="form-group">
+                            <label for="lblLogin" class="col-sm-2 control-label">Usuário</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="txtLogin" required oninvalid="setCustomValidity('Este campo deve ser preenchido!')"
+                                   placeholder="Usuário de acesso" oninput="setCustomValidity('')">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lblSenha" class="col-sm-2 control-label">Senha</label>
+
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="txtSenha" placeholder="Senha" required oninvalid="setCustomValidity('Este campo deve ser preenchido!')"
+                                    oninput="setCustomValidity('')">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-10">
+                                <button id="btnLogar" class="btn btn-default">Login</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
+                </div>-->
+            </div>
+
+        </div>
+    </div>
+
+
+
 </body>
 
 <!--JQuery-->
@@ -68,6 +141,8 @@
 <script src="~/../inc/boodstrap-3.3.6/bootstrap-modal.js"></script>
 <link rel="stylesheet" href="~/../css/boodstrap-3.3.6/bootstrap.min.css" />
 
+<script src="~/../js/login.js"></script>
+
 <script>
     function Produto(){
         this.Codigo = "";
@@ -76,7 +151,8 @@
         this.Preco = "";
         this.Estoque = "";
     }
-        var produtos = [];
+    var produtos = [];
+    var tela = "";
     
     $(document).ready(function(){
       $("ul.navbar-nav li").click(function(){
@@ -90,11 +166,10 @@
         incluirHome();
        }); 
         
-       $("#aCadastro").click(function(){    
-           $(".container").empty();       
-           $(".container").load("cadastrar.html");
+       $("#aCadastro").click(function(){   
+           login("cadastrar");        
        }); 
-       
+                     
        $("#aAlterar").click(function(){    
            $(".container").empty();       
            $(".container").load("alterar.html");
@@ -113,15 +188,26 @@
     });
     
     function incluirHome(){
-        var home = '<div id="home"><h3>Gerenciamento de Produtos</h3><p>Bem-vindo ao sistema de gerenciamento de produtos. Utilize do <b>menu</b> acima para navegar no site!</p></div>'
-         $(".container").empty();        
-         $(".container").append(home);         
+        var home; 
+        home = '<div id="home"><h3>Gerenciamento de Produtos</h3>' +
+               '<p>Bem-vindo ao sistema de gerenciamento de produtos. ' +
+               'Utilize do <b>menu</b> acima para navegar no site!</p>' +
+               '</br>' +
+               '</br>' +
+               '</br>' +
+               '<p> A navegação do <b>MENU</b> funciona apenas no navegador <b>FIREFOX</b> e <b>IE</b>, por conta da segurança imposta pelo Chrome. </p>' +
+               '</div>'
+        $(".container").empty();        
+        $(".container").append(home);         
     }
     
-    function sucesso(){
-        //var msg = "<p>Operação Efetuada com Sucesso! <a href='#' rel='modal:close'>Fechar</a></p>";
-        //$("#divAlertaSucesso").append(msg);  
+    function sucesso(){ 
         $("#linkSucesso").click(); 
+    }
+    
+    function login(t){
+        tela = t;
+        $("#btnModalLogin").click(); 
     }
     
     function ultimoCodigo(){
